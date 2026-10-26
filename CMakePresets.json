@@ -1,0 +1,91 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": { "major": 3, "minor": 28, "patch": 0 },
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      }
+    },
+    {
+      "name": "debug",
+      "displayName": "Debug",
+      "inherits": "base",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" }
+    },
+    {
+      "name": "release",
+      "displayName": "Release",
+      "inherits": "base",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" }
+    },
+    {
+      "name": "asan",
+      "displayName": "Debug + ASan/UBSan",
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "ENGINE_ENABLE_SANITIZERS": "ON"
+      },
+      "condition": { "type": "notEquals", "lhs": "${hostSystemName}", "rhs": "Windows" }
+    },
+    {
+      "name": "tidy",
+      "displayName": "Debug + clang-tidy",
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++",
+        "ENGINE_ENABLE_CLANG_TIDY": "ON"
+      }
+    },
+    {
+      "name": "full",
+      "displayName": "Debug + every optional library",
+      "description": "Enables the full technology stack; useful for checking dependency upgrades.",
+      "inherits": "debug",
+      "cacheVariables": {
+        "ENGINE_WITH_ENTT": "ON",
+        "ENGINE_WITH_BOX2D": "ON",
+        "ENGINE_WITH_JOLT": "ON",
+        "ENGINE_WITH_MINIAUDIO": "ON",
+        "ENGINE_WITH_IMGUI": "ON",
+        "ENGINE_WITH_STB": "ON",
+        "ENGINE_WITH_TINYGLTF": "ON",
+        "ENGINE_WITH_JSON": "ON",
+        "ENGINE_WITH_SPDLOG": "ON",
+        "ENGINE_WITH_TRACY": "ON"
+      }
+    }
+  ],
+  "buildPresets": [
+    { "name": "debug", "configurePreset": "debug" },
+    { "name": "release", "configurePreset": "release" },
+    { "name": "asan", "configurePreset": "asan" },
+    { "name": "tidy", "configurePreset": "tidy" },
+    { "name": "full", "configurePreset": "full" }
+  ],
+  "testPresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "output": { "outputOnFailure": true }
+    },
+    { "name": "debug", "inherits": "base", "configurePreset": "debug" },
+    { "name": "release", "inherits": "base", "configurePreset": "release" },
+    { "name": "asan", "inherits": "base", "configurePreset": "asan" },
+    { "name": "full", "inherits": "base", "configurePreset": "full" },
+    {
+      "name": "headless",
+      "displayName": "Unit tests only (no display/GPU)",
+      "inherits": "base",
+      "configurePreset": "debug",
+      "filter": { "exclude": { "label": "gpu" } }
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+# LeakSanitizer suppressions for one-time allocations inside system libraries
+# that SDL loads (desktop bus, window decorations, GPU drivers). They are not
+# engine leaks. Used by the asan preset's tests; for manual runs:
+#   LSAN_OPTIONS=suppressions=tools/sanitizers/lsan.supp ./build/asan/bin/breakout
+leak:libdbus-1.so
+leak:libdecor
+leak:libgtk-3.so
+leak:libgdk-3.so
+leak:libglib-2.0.so
+leak:libgobject-2.0.so
+leak:libgio-2.0.so
+leak:libfontconfig.so
+leak:libwayland-client.so
+leak:libxkbcommon.so
+leak:libX11.so
+leak:libvulkan.so
+leak:libvulkan_
+leak:libnvidia-
+leak:libGLX_nvidia
+leak:libdrm
