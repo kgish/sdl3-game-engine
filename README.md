@@ -1,4 +1,4 @@
-# sdl3-game-engine
+# README.md
 
 A reusable C++23 game engine built on **SDL3** (platform, window, input) and
 **SDL_GPU** (rendering on Vulkan, Direct3D 12, and Metal). It starts with 2D and

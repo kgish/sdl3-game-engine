@@ -1,4 +1,6 @@
-# Building a Reusable C++ Game Engine with SDL3 and SDL_GPU
+# SDL3_GAME_ENGINE.md
+
+Building a Reusable C++ Game Engine with SDL3 and SDL_GPU
 
 A consolidated guide from our discussion: library selection, architecture, technology stack, first project, reading recommendations, SDL_GPU trade-offs, and refinements to the interfaces and project layout.
 
