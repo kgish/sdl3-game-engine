@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.28)
 
-project(sdl3_game_engine
+project(sdl3-game-engine
     VERSION 0.1.0
     DESCRIPTION "Reusable C++23 game engine on SDL3 and SDL_GPU"
     LANGUAGES C CXX
